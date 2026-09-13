@@ -38,7 +38,13 @@ EXCLUDED_DIRECTORIES = {
 }
 
 MARKDOWN_PATTERN = "*.md"
+
+EXCLUDED_MARKDOWN_FILES = {
+    "README.md",
+}
+
 PAGE_TEMPLATE = "page.html"
+HOME_TEMPLATE = "index.html"
 
 
 class HeadingParser(HTMLParser):
@@ -145,6 +151,9 @@ def discover_markdown_sources() -> list[Path]:
         relative_path = path.relative_to(SOURCE_ROOT)
 
         if is_excluded(relative_path):
+            continue
+
+        if path.name in EXCLUDED_MARKDOWN_FILES:
             continue
 
         sources.append(path)
@@ -271,6 +280,19 @@ def render_page(page: Page, environment: Environment) -> str:
     )
 
 
+def render_home_page(environment: Environment) -> str:
+    """Render the dedicated portal home page."""
+    template = environment.get_template(HOME_TEMPLATE)
+
+    return template.render(
+        site_title="Śrī Gaṇeśa's Wisdom",
+        site_description=(
+            "A digital companion to Sri Gaṇeśa's Wisdom — "
+            "A Handbook of Symbolism and Daily Practice."
+        ),
+    )
+
+
 def prepare_build_directory() -> None:
     """Remove and recreate the static build directory."""
     if BUILD_DIR.exists():
@@ -297,6 +319,22 @@ def write_page(page: Page, html: str) -> None:
     )
 
 
+def write_home_page(html: str) -> None:
+    """Write the dedicated portal home page to the build directory."""
+    output_path = BUILD_DIR / "index.html"
+
+    output_path.write_text(
+        html,
+        encoding="utf-8",
+        newline="\n",
+    )
+
+    print_success(
+        "Generated: "
+        f"{output_path.relative_to(PROJECT_ROOT)}"
+    )
+
+
 def copy_static_assets() -> None:
     """Copy the project's static assets into the build directory."""
     source_assets = PROJECT_ROOT / "assets"
@@ -317,6 +355,7 @@ def validate_project_structure() -> None:
     required_paths = {
         "templates": TEMPLATE_DIR,
         "page template": TEMPLATE_DIR / PAGE_TEMPLATE,
+        "home template": TEMPLATE_DIR / HOME_TEMPLATE,
         "assets": PROJECT_ROOT / "assets",
     }
 
@@ -394,6 +433,9 @@ def build() -> int:
         for page in pages:
             html = render_page(page, environment)
             write_page(page, html)
+
+        home_html = render_home_page(environment)
+        write_home_page(home_html)
 
         print_header("Copying static assets")
         copy_static_assets()
