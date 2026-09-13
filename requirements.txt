@@ -1,0 +1,62 @@
+# =============================================================================
+# Sri Gaṇeśa — Part 1 Portal
+# Python Build Dependencies
+# =============================================================================
+#
+# Purpose:
+#   Defines the Python packages required to build, validate, and locally
+#   preview the GitHub Pages portal.
+#
+# Architecture:
+#   Markdown → Python build system → Jinja2 templates → HTML
+#
+# Design principle:
+#   Keep the build toolchain intentionally small, transparent, and maintainable.
+#   Add dependencies only when a concrete build requirement justifies them.
+#
+# Python:
+#   Python 3.11+
+#
+# Installation:
+#   python -m pip install -r requirements.txt
+#
+# Virtual environment:
+#   Create and activate the project-local virtual environment before installing
+#   these dependencies.
+#
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Content processing
+# -----------------------------------------------------------------------------
+
+# Converts the canonical Markdown source into HTML during the build.
+Markdown>=3.7,<4.0
+
+
+# -----------------------------------------------------------------------------
+# HTML templating
+# -----------------------------------------------------------------------------
+
+# Provides the template engine used to assemble the portal pages from reusable
+# HTML templates and canonical Markdown content.
+Jinja2>=3.1,<4.0
+
+
+# -----------------------------------------------------------------------------
+# Image processing
+# -----------------------------------------------------------------------------
+
+# Used by the build/tooling layer for image inspection, optimisation and
+# validation of the portal's visual assets.
+Pillow>=11.0,<12.0
+
+
+# -----------------------------------------------------------------------------
+# Testing
+# -----------------------------------------------------------------------------
+
+# Provides the automated test framework for validating the build system,
+# generated content, links, assets and other portal behaviour.
+pytest>=8.0,<9.0

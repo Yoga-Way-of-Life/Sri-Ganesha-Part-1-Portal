@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="{{ site_description }}">
+    <meta name="author" content="Satya Prakash Nigam">
+    <meta name="theme-color" content="#8f2d14">
+
+    <title>{{ page.title }} — Śrī Gaṇeśa's Wisdom</title>
+
+    <!--
+        Sri Gaṇeśa — Part 1 Portal
+        Global page template.
+
+        Architecture:
+
+            Markdown
+                ↓
+            Python build engine
+                ↓
+            Jinja2 template
+                ↓
+            Static HTML
+                ↓
+            CSS / JavaScript / WebP assets
+
+        This template deliberately separates:
+            - content
+            - presentation
+            - behaviour
+            - visual assets
+    -->
+
+    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    {% block page_styles %}{% endblock %}
+
+</head>
+
+<body>
+
+    <a class="skip-link" href="#main-content">
+        Skip to main content
+    </a>
+
+    <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <div class="site-header__inner">
+            <a class="site-brand" href="index.html" aria-label="Śrī Gaṇeśa's Wisdom — Home">
+                <span class="site-brand__symbol" aria-hidden="true">ॐ</span>
+
+                <span class="site-brand__text">
+                    <span class="site-brand__title">
+                        Śrī Gaṇeśa's Wisdom
+                    </span>
+
+                    <span class="site-brand__subtitle">
+                        A Handbook of Symbolism and Daily Practice
+                    </span>
+                </span>
+            </a>
+
+            <nav class="site-navigation" id="site-navigation" aria-label="Primary navigation">
+                <a href="index.html">Home</a>
+                <a href="01-foreword.html">Foreword</a>
+                <a href="#main-content">Read</a>
+            </nav>
+
+            <div class="site-header__actions">
+                <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme">
+                    <span class="theme-toggle__icon" aria-hidden="true">◐</span>
+                </button>
+
+                <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="site-navigation">
+                    <span aria-hidden="true">☰</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+
+        <section class="page-banner" aria-label="Śrī Gaṇeśa">
+            <img class="page-banner__image" src="assets/images/sri-ganesh-panoramic-1.webp" alt="Śrī Gaṇeśa">
+        </section>
+
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <div class="breadcrumb__inner">
+                <a href="index.html">Śrī Gaṇeśa's Wisdom</a>
+
+                <span class="breadcrumb__separator" aria-hidden="true">/</span>
+
+                <span>Part 1</span>
+
+                <span class="breadcrumb__separator" aria-hidden="true">/</span>
+
+                <span class="breadcrumb__current" aria-current="page">{{ page.title }}</span>
+            </div>
+        </nav>
+
+        <div class="reading-layout">
+
+            <aside class="reading-sidebar" aria-label="Page information">
+                <div class="sidebar-card">
+                    <p class="sidebar-card__label">
+                        Part 1
+                    </p>
+
+                    <p class="sidebar-card__section">
+                        The Wisdom of
+                        <span>Śrī Gaṇeśa</span>
+                    </p>
+
+                    <div class="sidebar-divider"></div>
+
+                    <p class="sidebar-card__title">
+                        {{ page.title }}
+                    </p>
+
+                    <p class="sidebar-card__text">
+                        A doorway into the ideas, symbolism and living
+                        wisdom explored through Śrī Gaṇeśa.
+                    </p>
+                </div>
+            </aside>
+
+            <article class="reading-content">
+
+                <div class="content-body">
+                    {{ page.content_html | safe }}
+                </div>
+
+                <aside class="reflection-card">
+                    <div class="reflection-card__mark" aria-hidden="true">
+                        ?
+                    </div>
+
+                    <div class="reflection-card__content">
+                        <p class="reflection-card__label">
+                            A moment for reflection
+                        </p>
+
+                        <p class="reflection-card__text">
+                            What might this teaching mean when brought
+                            consciously into everyday life?
+                        </p>
+                    </div>
+                </aside>
+
+                <nav class="page-navigation" aria-label="Page navigation">
+
+                    {% if page.previous_page %}
+                    <a class="page-navigation__item page-navigation__item--previous" href="{{ page.previous_page.url }}">
+                        <span class="page-navigation__direction">← Previous</span>
+                        <span class="page-navigation__title">{{ page.previous_page.title }}</span>
+                    </a>
+                    {% endif %}
+
+                    {% if page.next_page %}
+                    <a class="page-navigation__item page-navigation__item--next" href="{{ page.next_page.url }}" aria-label="Next page: {{ page.next_page.title }}">
+                        <span class="page-navigation__direction">Next →</span>
+                        <span class="page-navigation__title">{{ page.next_page.title }}</span>
+                    </a>
+                    {% endif %}
+
+                </nav>
+            </article>
+
+            <aside class="reading-right-sidebar" aria-label="On this page">
+                {% if page.page_toc %}
+                {{ page.page_toc | safe }}
+                {% endif %}
+            </aside>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <div class="site-footer__brand">
+                <span class="site-footer__symbol" aria-hidden="true">
+                    ॐ
+                </span>
+
+                <div>
+                    <p class="site-footer__title">
+                        Śrī Gaṇeśa's Wisdom
+                    </p>
+
+                    <p class="site-footer__text">
+                        A digital companion to a journey of symbolism,
+                        reflection and daily practice.
+                    </p>
+                </div>
+            </div>
+
+            <div class="site-footer__closing">
+                <p class="site-footer__mantra">
+                    ॐ गं गणपतये नमः ।
+                </p>
+
+                <p class="site-footer__copyright">
+                    © Satya Prakash Nigam
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/site.js"></script>
+
+    {% block page_scripts %}{% endblock %}
+
+</body>
+</html>

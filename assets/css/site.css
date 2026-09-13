@@ -1,0 +1,1370 @@
+/* =============================================================================
+   Śrī Gaṇeśa — Part 1 Portal
+   Global Visual Design System
+   =============================================================================
+
+   Design language
+   ---------------
+   Contemporary editorial + Indian philosophical tradition.
+
+   Visual principles
+   -----------------
+   - Warm rather than sterile
+   - Premium rather than decorative
+   - Spacious rather than sparse
+   - Scholarly without becoming academic
+   - Spiritual without becoming ornamental
+   - Contemporary without losing cultural character
+
+   Core palette
+   ------------
+   Warm ivory       #f8f5ef
+   Paper            #fffdf8
+   Charcoal         #25221f
+   Muted text       #625c55
+   Saffron          #b54a1d
+   Deep vermilion   #8f2d14
+   Soft gold        #b48a48
+   Border           #ddd4c7
+
+   Responsive breakpoints
+   ----------------------
+   Desktop: 1024px+
+   Tablet: 768px–1023px
+   Mobile: below 768px
+
+   Accessibility
+   -------------
+   - Visible keyboard focus
+   - Skip navigation
+   - Adequate text contrast
+   - Reduced-motion support
+   - Semantic content structure
+
+   ============================================================================= */
+
+
+/* =============================================================================
+   1. Design tokens
+   ============================================================================= */
+
+:root {
+    --colour-background: #f8f5ef;
+    --colour-surface: #fffdf8;
+    --colour-surface-soft: #f1ece3;
+    --colour-surface-dark: #ebe4d8;
+
+    --colour-text: #25221f;
+    --colour-text-soft: #625c55;
+    --colour-text-muted: #81786e;
+
+    --colour-primary: #8f2d14;
+    --colour-primary-light: #b54a1d;
+    --colour-primary-soft: #f3e3da;
+
+    --colour-gold: #b48a48;
+    --colour-gold-soft: #eadfc9;
+
+    --colour-border: #ddd4c7;
+    --colour-border-light: #ebe4d9;
+
+    --colour-white: #ffffff;
+    --colour-black: #11100f;
+
+    --font-display: Georgia, "Times New Roman", serif;
+    --font-body: "Segoe UI", Arial, sans-serif;
+    --font-sanskrit: "Noto Serif Devanagari", "Nirmala UI", "Mangal", serif;
+
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.35rem;
+    --text-2xl: 1.75rem;
+    --text-3xl: 2.35rem;
+    --text-4xl: 3.35rem;
+
+    --content-width: 760px;
+    --reading-layout-width: 1180px;
+    --header-width: 1280px;
+
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-7: 3rem;
+    --space-8: 4rem;
+    --space-9: 6rem;
+    --space-10: 8rem;
+
+    --radius-sm: 0.35rem;
+    --radius-md: 0.65rem;
+    --radius-lg: 1rem;
+
+    --shadow-soft: 0 10px 30px rgba(62, 48, 34, 0.07);
+    --shadow-card: 0 16px 40px rgba(62, 48, 34, 0.09);
+
+    --transition-fast: 160ms ease;
+    --transition-normal: 260ms ease;
+
+    color-scheme: light;
+}
+
+
+/* =============================================================================
+   2. Dark theme
+   ============================================================================= */
+
+[data-theme="dark"] {
+    --colour-background: #191715;
+    --colour-surface: #211f1c;
+    --colour-surface-soft: #292621;
+    --colour-surface-dark: #302c26;
+
+    --colour-text: #eee9e0;
+    --colour-text-soft: #c5bdb2;
+    --colour-text-muted: #9b9186;
+
+    --colour-primary: #df7547;
+    --colour-primary-light: #ef9365;
+    --colour-primary-soft: #3a2820;
+
+    --colour-gold: #d0aa6a;
+    --colour-gold-soft: #3a3022;
+
+    --colour-border: #443d34;
+    --colour-border-light: #342f29;
+
+    --colour-white: #ffffff;
+    --colour-black: #000000;
+
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.22);
+    --shadow-card: 0 16px 40px rgba(0, 0, 0, 0.28);
+
+    color-scheme: dark;
+}
+
+
+/* =============================================================================
+   3. Global reset
+   ============================================================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--colour-background);
+    color: var(--colour-text);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    color: var(--colour-primary);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+
+a:hover {
+    color: var(--colour-primary-light);
+}
+
+button {
+    font: inherit;
+}
+
+
+/* =============================================================================
+   4. Accessibility
+   ============================================================================= */
+
+.skip-link {
+    position: fixed;
+    top: -100px;
+    left: 1rem;
+    z-index: 1000;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    background: var(--colour-primary);
+    color: var(--colour-white);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.skip-link:focus {
+    top: 1rem;
+}
+
+:focus-visible {
+    outline: 3px solid var(--colour-gold);
+    outline-offset: 4px;
+}
+
+
+/* =============================================================================
+   5. Reading progress
+   ============================================================================= */
+
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1100;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        var(--colour-primary),
+        var(--colour-gold)
+    );
+    transition: width 80ms linear;
+}
+
+
+/* =============================================================================
+   6. Site header
+   ============================================================================= */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    border-bottom: 1px solid var(--colour-border-light);
+    background: color-mix(
+        in srgb,
+        var(--colour-background) 94%,
+        transparent
+    );
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    width: min(100% - 3rem, var(--header-width));
+    min-height: 78px;
+    margin: 0 auto;
+}
+
+.site-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--colour-text);
+    text-decoration: none;
+}
+
+.site-brand:hover {
+    color: var(--colour-text);
+}
+
+.site-brand__symbol {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border: 1px solid var(--colour-gold);
+    border-radius: 50%;
+    color: var(--colour-primary);
+    font-family: var(--font-sanskrit);
+    font-size: 1.35rem;
+}
+
+.site-brand__text {
+    display: flex;
+    flex-direction: column;
+}
+
+.site-brand__title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.site-brand__subtitle {
+    margin-top: 1px;
+    color: var(--colour-text-muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.035em;
+}
+
+.site-navigation {
+    display: flex;
+    align-items: center;
+    gap: 1.7rem;
+    margin-left: auto;
+}
+
+.site-navigation a {
+    position: relative;
+    color: var(--colour-text-soft);
+    font-size: 0.86rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.site-navigation a::after {
+    position: absolute;
+    right: 0;
+    bottom: -7px;
+    left: 0;
+    height: 1px;
+    background: var(--colour-primary);
+    content: "";
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--transition-fast);
+}
+
+.site-navigation a:hover::after,
+.site-navigation a:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.theme-toggle,
+.menu-toggle {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    place-items: center;
+    border: 1px solid var(--colour-border);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--colour-text);
+    cursor: pointer;
+    transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.theme-toggle:hover,
+.menu-toggle:hover {
+    border-color: var(--colour-gold);
+    background: var(--colour-surface-soft);
+    transform: translateY(-1px);
+}
+
+.theme-toggle__icon {
+    font-size: 1rem;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+/* ==========================================================================
+   Page Banner
+   ========================================================================== */
+
+.page-banner {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: var(--colour-charcoal);
+}
+
+.page-banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.08),
+            rgba(0, 0, 0, 0.18)
+        );
+}
+
+.page-banner__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+/* ==========================================================================
+   Page Banner — Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .page-banner {
+        height: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-banner {
+        height: 130px;
+    }
+}
+
+
+/* ==========================================================================
+   Breadcrumb
+   ========================================================================== */
+
+.breadcrumb {
+    width: 100%;
+    border-bottom: 1px solid var(--colour-border);
+    background: var(--colour-background);
+}
+
+.breadcrumb__inner {
+    width: min(
+        var(--content-max-width),
+        calc(100% - 3rem)
+    );
+    margin: 0 auto;
+	padding-left: 10px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.76rem;
+    letter-spacing: 0.03em;
+    color: var(--colour-muted);
+}
+
+.breadcrumb a {
+    color: var(--colour-muted);
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+
+.breadcrumb a:hover {
+    color: var(--colour-accent);
+}
+
+.breadcrumb__separator {
+    opacity: 0.45;
+}
+
+.breadcrumb__current {
+    color: var(--colour-text);
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   Sacred Invocation
+   ========================================================================== */
+
+.sacred-invocation {
+    margin: 0 0 3.25rem;
+    padding: 2.5rem 1.5rem 2.35rem;
+    text-align: center;
+    border-top: 1px solid var(--colour-border);
+    border-bottom: 1px solid var(--colour-border);
+    position: relative;
+}
+
+.sacred-invocation::after {
+    content: "✦";
+    position: absolute;
+    left: 50%;
+    bottom: -0.55rem;
+    transform: translateX(-50%);
+    padding: 0 0.75rem;
+    background: var(--colour-background);
+    color: var(--colour-accent);
+    font-size: 0.8rem;
+}
+
+.sacred-invocation__sanskrit {
+    margin: 0;
+    color: #b33a24;
+    font-family: var(--font-sanskrit);
+    font-size: 1.15rem;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.sacred-invocation__transliteration {
+    margin: 0.75rem 0 0;
+    color: var(--colour-text);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-style: italic;
+    letter-spacing: 0.02em;
+}
+
+.sacred-invocation__meaning {
+    margin: 0.55rem 0 0;
+    color: var(--colour-muted);
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   Sacred Invocation — Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .sacred-invocation {
+        margin-bottom: 2.75rem;
+        padding: 2rem 1rem 1.9rem;
+    }
+
+	.sacred-invocation__sanskrit {
+		font-size: 1rem;
+	}
+
+    .sacred-invocation__transliteration {
+        font-size: 0.92rem;
+    }
+
+    .sacred-invocation__meaning {
+        font-size: 0.84rem;
+    }
+}
+
+
+/* ==========================================================================
+   Sidebar — Page Identity
+   ========================================================================== */
+
+.sidebar-card__section {
+    margin: 0 0 0.9rem;
+    color: var(--colour-text);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    line-height: 1.35;
+}
+
+.sidebar-card__section span {
+    display: block;
+    color: var(--colour-accent);
+}
+
+.sidebar-card__title {
+    margin: 0;
+    color: var(--colour-text);
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    line-height: 1.3;
+    font-weight: 600;
+}
+
+
+
+
+/* =============================================================================
+   8. Reading layout
+   ============================================================================= */
+
+.reading-layout {
+    display: grid;
+    grid-template-columns: 220px minmax(0, var(--content-width));
+    gap: clamp(2.5rem, 7vw, 6rem);
+    align-items: start;
+    width: min(100% - 3rem, var(--reading-layout-width));
+    margin: 0 auto;
+    padding: var(--space-9) 0 var(--space-10);
+}
+
+.reading-sidebar {
+    position: sticky;
+    top: 110px;
+}
+
+.sidebar-card {
+    padding: 1.35rem;
+    border-top: 2px solid var(--colour-gold);
+    background: var(--colour-surface-soft);
+}
+
+.sidebar-card__label {
+    margin: 0 0 0.65rem;
+    color: var(--colour-primary);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.sidebar-card__title {
+    margin: 0;
+    color: var(--colour-text);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    line-height: 1.35;
+}
+
+.sidebar-divider {
+    width: 36px;
+    height: 1px;
+    margin: 1rem 0;
+    background: var(--colour-gold);
+}
+
+.sidebar-card__text {
+    margin: 0;
+    color: var(--colour-text-soft);
+    font-size: 0.8rem;
+    line-height: 1.65;
+}
+
+
+/* =============================================================================
+   9. Reading content
+   ============================================================================= */
+
+.reading-content {
+    min-width: 0;
+}
+
+.content-body {
+    color: var(--colour-text);
+    font-family: var(--font-body);
+    font-size: 1.04rem;
+    line-height: 1.9;
+}
+
+.content-body > :first-child {
+    margin-top: 0;
+}
+
+.content-body > :last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Editorial Reading Rhythm
+   ========================================================================== */
+
+.content-body {
+    max-width: 72ch;
+}
+
+.content-body h2 {
+    position: relative;
+    margin: 3.4rem 0 1.25rem;
+    padding-top: 0.35rem;
+    color: var(--colour-text);
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.content-body h2::before {
+    content: "";
+    display: block;
+    width: 2.5rem;
+    height: 2px;
+    margin-bottom: 0.85rem;
+    background: var(--colour-accent);
+    opacity: 0.75;
+}
+
+.content-body p {
+    max-width: 72ch;
+    line-height: 1.85;
+}
+
+.content-body h2 + p {
+    margin-top: 0.25rem;
+}
+
+.content-body blockquote {
+    margin: 2rem 0;
+}
+
+/* =============================================================================
+   10. Typography
+   ============================================================================= */
+
+.content-body h1,
+.content-body h2,
+.content-body h3,
+.content-body h4,
+.content-body h5,
+.content-body h6 {
+    color: var(--colour-text);
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.25;
+    text-wrap: balance;
+}
+
+.content-body h1 {
+    margin: 0 0 1.5rem;
+    font-size: 1.7rem;
+	color: #315f72;
+}
+
+.content-body h2 {
+    margin: 3.5rem 0 1.1rem;
+    padding-top: 0.35rem;
+    font-size: 1.45rem;
+    color: #315f72;
+    letter-spacing: -0.015em;
+}
+
+.content-body h3 {
+    margin: 2.7rem 0 0.85rem;
+    font-size: 1.4rem;
+}
+
+.content-body h4 {
+    margin: 2rem 0 0.7rem;
+    font-size: 1.15rem;
+}
+
+.content-body p {
+    margin: 0 0 1.35rem;
+}
+
+.content-body strong {
+    color: var(--colour-text);
+    font-weight: 700;
+}
+
+.content-body em {
+    color: var(--colour-text-soft);
+}
+
+.content-body hr {
+    width: 80px;
+    height: 1px;
+    margin: 3rem 0;
+    border: 0;
+    background: var(--colour-gold);
+}
+
+.content-body blockquote {
+    margin: 2.25rem 0;
+    padding: 1.5rem 1.7rem;
+    border-left: 3px solid var(--colour-gold);
+    background: var(--colour-surface-soft);
+    color: var(--colour-text-soft);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.content-body blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* ==========================================================================
+   On This Page
+   ========================================================================== */
+
+.page-toc {
+    width: 100%;
+    margin: 0 0 3.25rem;
+    padding: 1.5rem 1.6rem 1.6rem;
+    border: 1px solid var(--colour-border);
+    border-left: 4px solid var(--colour-accent);
+    background: var(--colour-surface-soft);
+    box-sizing: border-box;
+}
+
+.page-toc__label {
+    margin: 0 0 1rem;
+    color: var(--colour-accent);
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.3;
+    text-transform: uppercase;
+}
+
+.page-toc__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.35rem;
+}
+
+.page-toc__list li {
+    margin: 0;
+    padding: 0;
+}
+
+.page-toc__list a {
+    display: block;
+    padding: 0.35rem 0.55rem;
+    border-radius: 3px;
+    color: var(--colour-text);
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    text-decoration: none;
+    transition:
+        color 180ms ease,
+        background-color 180ms ease;
+}
+
+.page-toc__list a:hover,
+.page-toc__list a:focus-visible {
+    color: var(--colour-accent);
+    background-color: var(--colour-background);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+    .page-toc {
+        margin-bottom: 2.75rem;
+        padding: 1.25rem 1.15rem 1.35rem;
+    }
+
+    .page-toc__label {
+        margin-bottom: 0.85rem;
+        font-size: 0.74rem;
+    }
+
+    .page-toc__list {
+        gap: 0.3rem;
+    }
+
+    .page-toc__list a {
+        padding: 0.3rem 0.45rem;
+        font-size: 0.86rem;
+        line-height: 1.5;
+    }
+}
+ 
+/* =============================================================================
+   11. Sanskrit and Devanāgarī
+   ============================================================================= */
+
+.content-body .sanskrit,
+.content-body [lang="sa"],
+.content-body [lang="hi"] {
+    font-family: var(--font-sanskrit);
+    line-height: 2;
+}
+
+.content-body code {
+    padding: 0.12rem 0.35rem;
+    border-radius: var(--radius-sm);
+    background: var(--colour-surface-soft);
+    color: var(--colour-primary);
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.88em;
+}
+
+.content-body pre {
+    overflow-x: auto;
+    margin: 2rem 0;
+    padding: 1.35rem;
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-md);
+    background: var(--colour-surface-soft);
+    line-height: 1.65;
+}
+
+.content-body pre code {
+    padding: 0;
+    background: transparent;
+    color: inherit;
+}
+
+
+/* =============================================================================
+   12. Lists
+   ============================================================================= */
+
+.content-body ul,
+.content-body ol {
+    margin: 0 0 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.content-body li {
+    margin-bottom: 0.5rem;
+    padding-left: 0.2rem;
+}
+
+.content-body li::marker {
+    color: var(--colour-primary);
+}
+
+.content-body ul ul,
+.content-body ol ol,
+.content-body ul ol,
+.content-body ol ul {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+
+/* =============================================================================
+   13. Tables
+   ============================================================================= */
+
+.content-body table {
+    width: 100%;
+    margin: 2rem 0;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+}
+
+.content-body th,
+.content-body td {
+    padding: 0.8rem 0.9rem;
+    border: 1px solid var(--colour-border);
+    text-align: left;
+    vertical-align: top;
+}
+
+.content-body th {
+    background: var(--colour-surface-soft);
+    color: var(--colour-text);
+    font-weight: 700;
+}
+
+
+/* =============================================================================
+   14. Images
+   ============================================================================= */
+
+.content-body figure {
+    margin: 2.5rem 0;
+}
+
+.content-body img {
+    width: 100%;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+}
+
+.content-body figcaption {
+    margin-top: 0.75rem;
+    color: var(--colour-text-muted);
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-style: italic;
+    line-height: 1.6;
+    text-align: center;
+}
+
+
+/* =============================================================================
+   15. Reflection card
+   ============================================================================= */
+
+.reflection-card {
+    display: flex;
+    gap: 1rem;
+    margin-top: var(--space-9);
+    padding: 1.5rem;
+    border: 1px solid var(--colour-gold-soft);
+    border-radius: var(--radius-md);
+    background: var(--colour-surface-soft);
+}
+
+.reflection-card__mark {
+    display: grid;
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border: 1px solid var(--colour-gold);
+    border-radius: 50%;
+    color: var(--colour-primary);
+    font-family: var(--font-display);
+    font-weight: 700;
+}
+
+.reflection-card__content {
+    min-width: 0;
+}
+
+.reflection-card__label {
+    margin: 0 0 0.3rem;
+    color: var(--colour-primary);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.reflection-card__text {
+    margin: 0;
+    color: var(--colour-text-soft);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+
+/* =============================================================================
+   16. Page navigation
+   ============================================================================= */
+
+.page-navigation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: var(--space-9);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--colour-border);
+}
+
+.page-navigation__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-height: 92px;
+    padding: 1rem 1.15rem;
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-md);
+    background: var(--colour-surface);
+    color: var(--colour-text);
+    text-decoration: none;
+    transition:
+        border-color var(--transition-normal),
+        transform var(--transition-normal),
+        box-shadow var(--transition-normal);
+}
+
+.page-navigation__item:hover {
+    border-color: var(--colour-gold);
+    box-shadow: var(--shadow-soft);
+    color: var(--colour-text);
+    transform: translateY(-2px);
+}
+
+.page-navigation__item--next {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.page-navigation__direction {
+    color: var(--colour-primary);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.page-navigation__title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+}
+
+
+/* =============================================================================
+   17. Footer
+   ============================================================================= */
+
+.site-footer {
+    border-top: 1px solid var(--colour-border);
+    background: var(--colour-surface-soft);
+}
+
+.site-footer__inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+    width: min(100% - 3rem, var(--header-width));
+    margin: 0 auto;
+    padding: var(--space-7) 0;
+}
+
+.site-footer__brand {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+}
+
+.site-footer__symbol {
+    color: var(--colour-primary);
+    font-family: var(--font-sanskrit);
+    font-size: 1.35rem;
+}
+
+.site-footer__title {
+    margin: 0;
+    color: var(--colour-text);
+    font-family: var(--font-display);
+    font-weight: 700;
+}
+
+.site-footer__text {
+    max-width: 430px;
+    margin: 0.35rem 0 0;
+    color: var(--colour-text-muted);
+    font-size: 0.78rem;
+}
+
+.site-footer__closing {
+    text-align: right;
+}
+
+.site-footer__mantra {
+    margin: 0;
+    color: var(--colour-primary);
+    font-family: var(--font-sanskrit);
+    font-size: 0.95rem;
+}
+
+.site-footer__copyright {
+    margin: 0.4rem 0 0;
+    color: var(--colour-text-muted);
+    font-size: 0.72rem;
+}
+
+
+/* =============================================================================
+   18. Utility classes
+   ============================================================================= */
+
+.text-muted {
+    color: var(--colour-text-muted);
+}
+
+.text-primary {
+    color: var(--colour-primary);
+}
+
+.sanskrit {
+    font-family: var(--font-sanskrit);
+}
+
+.display {
+    font-family: var(--font-display);
+}
+
+
+/* =============================================================================
+   19. Responsive — tablet
+   ============================================================================= */
+
+@media (max-width: 1023px) {
+    .reading-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .reading-sidebar {
+        position: static;
+    }
+
+    .sidebar-card {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        column-gap: 1rem;
+        align-items: center;
+        padding: 1rem 1.2rem;
+        border-top: 0;
+        border-left: 2px solid var(--colour-gold);
+    }
+
+    .sidebar-card__label {
+        grid-column: 1;
+        margin: 0;
+    }
+
+    .sidebar-card__title {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .sidebar-divider {
+        display: none;
+    }
+
+    .sidebar-card__text {
+        display: none;
+    }
+}
+
+
+/* =============================================================================
+   20. Responsive — mobile
+   ============================================================================= */
+
+@media (max-width: 767px) {
+    :root {
+        --text-base: 0.98rem;
+        --space-9: 4rem;
+        --space-10: 5rem;
+    }
+
+    .site-header__inner {
+        width: min(100% - 1.5rem, var(--header-width));
+        min-height: 68px;
+    }
+
+    .site-brand__symbol {
+        width: 36px;
+        height: 36px;
+        font-size: 1.15rem;
+    }
+
+    .site-brand__title {
+        font-size: 0.98rem;
+    }
+
+    .site-brand__subtitle {
+        display: none;
+    }
+
+    .site-navigation {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        margin: 0;
+        padding: 0.5rem 1.5rem 1rem;
+        border-bottom: 1px solid var(--colour-border);
+        background: var(--colour-background);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .site-navigation.is-open {
+        display: flex;
+    }
+
+    .site-navigation a {
+        padding: 0.8rem 0;
+        border-bottom: 1px solid var(--colour-border-light);
+    }
+
+    .site-navigation a:last-child {
+        border-bottom: 0;
+    }
+
+    .site-navigation a::after {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: grid;
+    }
+
+    .page-hero__inner {
+        width: min(100% - 1.5rem, var(--content-width));
+        padding: var(--space-8) 0 var(--space-7);
+    }
+
+    .page-hero__title {
+        font-size: clamp(2.15rem, 12vw, 3rem);
+    }
+
+    .reading-layout {
+        width: min(100% - 1.5rem, var(--content-width));
+        padding: var(--space-7) 0 var(--space-8);
+    }
+
+    .content-body {
+        font-size: 1rem;
+        line-height: 1.82;
+    }
+
+	.content-body h2 {
+		margin-top: 2.8rem;
+		font-size: 1.3rem;
+	}
+
+    .content-body h3 {
+        font-size: 1.3rem;
+    }
+
+    .content-body blockquote {
+        margin-right: 0;
+        margin-left: 0;
+        padding: 1.2rem 1.25rem;
+        font-size: 1rem;
+    }
+
+    .reflection-card {
+        margin-top: var(--space-7);
+        padding: 1.2rem;
+    }
+
+    .page-navigation {
+        grid-template-columns: 1fr;
+        margin-top: var(--space-7);
+    }
+
+    .page-navigation__item--next {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .site-footer__inner {
+        flex-direction: column;
+        gap: 2rem;
+        width: min(100% - 1.5rem, var(--header-width));
+        padding: var(--space-7) 0;
+    }
+
+    .site-footer__closing {
+        text-align: left;
+    }
+}
+
+
+/* =============================================================================
+   21. Reduced motion
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}

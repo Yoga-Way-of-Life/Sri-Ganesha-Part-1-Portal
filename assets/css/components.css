@@ -1,0 +1,160 @@
+/* =============================================================================
+   Śrī Gaṇeśa — Part 1 Portal
+   Reusable Component Styles
+   =============================================================================
+
+   Purpose
+   -------
+   Contains new reusable UI components that are intentionally kept separate
+   from the frozen global stylesheet: assets/css/site.css.
+
+   Principle
+   ---------
+   site.css is frozen.
+   New component styling belongs here.
+
+   ============================================================================= */
+
+/* =============================================================================
+   1. Previous / Next Page Navigation
+   ============================================================================= */
+
+.page-navigation {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.25rem;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--colour-border);
+}
+
+.page-navigation__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.45rem;
+    min-width: 0;
+    min-height: 86px;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--colour-primary);
+    border-radius: 0.65rem;
+    background: var(--colour-primary);
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.12);
+    color: var(--colour-white);
+    text-decoration: none;
+    transition:
+        transform 180ms ease,
+        background-color 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.page-navigation__item:hover,
+.page-navigation__item:focus-visible {
+    transform: translateY(-3px);
+    border-color: var(--colour-primary-light);
+    background-color: var(--colour-primary-light);
+    box-shadow: 0 9px 24px rgba(0, 0, 0, 0.18);
+    color: var(--colour-white);
+}
+
+.page-navigation__item--previous {
+    border-left: 4px solid var(--colour-white);
+}
+
+.page-navigation__item--next {
+    border-right: 4px solid var(--colour-white);
+    text-align: right;
+}
+
+.page-navigation__direction {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    line-height: 1.3;
+    text-transform: uppercase;
+}
+
+.page-navigation__item:hover .page-navigation__direction,
+.page-navigation__item:focus-visible .page-navigation__direction {
+    color: var(--colour-white);
+}
+
+.page-navigation__title {
+    overflow: hidden;
+    color: var(--colour-white);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.45;
+    text-overflow: ellipsis;
+}
+
+.page-navigation__item:hover .page-navigation__title,
+.page-navigation__item:focus-visible .page-navigation__title {
+    color: var(--colour-white);
+}
+ 
+/* =============================================================================
+   2. Responsive Components
+   ============================================================================= */
+
+@media (max-width: 768px) {
+    .page-navigation {
+        grid-template-columns: 1fr;
+        margin-top: 3rem;
+    }
+
+    .page-navigation__item--next {
+        text-align: left;
+    }
+}
+
+
+/* =============================================================================
+   3. Three-Column Reading Layout
+   ============================================================================= */
+
+.reading-layout {
+    grid-template-columns:
+        minmax(180px, 220px)
+        minmax(0, 1fr)
+        minmax(180px, 220px);
+    gap: 3rem;
+}
+
+.reading-right-sidebar {
+    min-width: 0;
+    padding-top: 0.5rem;
+}
+
+.reading-right-sidebar .page-toc {
+    position: sticky;
+    top: 6rem;
+    margin-bottom: 0;
+}
+
+
+/* =============================================================================
+   4. Responsive Three-Column Reading Layout
+   ============================================================================= */
+
+@media (max-width: 1100px) {
+    .reading-layout {
+        grid-template-columns:
+            minmax(160px, 200px)
+            minmax(0, 1fr);
+        gap: 2rem;
+    }
+
+    .reading-right-sidebar {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .reading-layout {
+        grid-template-columns: 1fr;
+    }
+}
